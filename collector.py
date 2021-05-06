@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import os
 from course import Course
 from course import DataCollector
-
+import time
 
 class OSCAR_API:
     def __init__(self):
@@ -158,7 +158,7 @@ def collect_course_data():
 
 
 def update_timestamp():
-    timestamp = os.path.getmtime("./data/database.shlf.dat")
+    timestamp = time.time()
     shelf = shelve.open("./data/database.shlf")
     shelf["timestamp"] = timestamp
     shelf.close()

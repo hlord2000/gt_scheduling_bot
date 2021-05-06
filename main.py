@@ -11,7 +11,7 @@ if __name__ == "__main__":
     description = '''A bot intended to make Georgia Tech's class search
     LESS TERRIBLE'''
 
-    bot = commands.Bot(command_prefix="!", description=description)
+    bot = commands.Bot(command_prefix="`", description=description)
 
     slash = SlashCommand(bot, sync_commands=True)
     guild_ids = [797968601575325707, 575726573852819508, 760550078448140346]
@@ -85,8 +85,10 @@ if __name__ == "__main__":
 
     @tasks.loop(minutes=5)
     async def weekly_database_update():
-        if time.time() - os.path.getmtime("./data/database.shlf.dat") > 604800:
+        shelf = shelve.open('./data/database.shlf')
+        if time.time() - shelf["timestamp"] > 604800:
             update_database()
+        shelf.close()
 
 
     bot.loop.create_task(weekly_database_update())
