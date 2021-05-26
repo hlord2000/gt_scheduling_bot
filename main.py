@@ -83,13 +83,4 @@ if __name__ == "__main__":
                        "I can just make more.", delete_after=60)
 
 
-    @tasks.loop(minutes=5)
-    async def weekly_database_update():
-        shelf = shelve.open('./data/database.shlf')
-        if time.time() - shelf["timestamp"] > 604800:
-            update_database()
-        shelf.close()
-
-
-    bot.loop.create_task(weekly_database_update())
-    bot.run(secret)
+    bot.run("ODMxMDY2MDY0NTI3MTYzNDEz.YHP0lg.cAP8aUYLStHU7tGtlMiKd38doHY")
