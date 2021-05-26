@@ -14,7 +14,7 @@ if __name__ == "__main__":
     bot = commands.Bot(command_prefix="`", description=description)
 
     slash = SlashCommand(bot, sync_commands=True)
-    guild_ids = [797968601575325707, 575726573852819508, 760550078448140346]
+    guild_ids = [797968601575325707, 575726573852819508, 760550078448140346, 823735719708590110]
 
 
     @bot.event
@@ -92,4 +92,4 @@ if __name__ == "__main__":
 
 
     bot.loop.create_task(weekly_database_update())
-    bot.run("ODMxMDY2MDY0NTI3MTYzNDEz.YHP0lg.6_668XbbTuXKASU-DNEZLYOXeaI")
+    bot.run(secret)
