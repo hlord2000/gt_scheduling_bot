@@ -5,6 +5,7 @@ import os
 from collector import update_database
 from course import *
 import asyncio
+from dotenv import load_dotenv
 
 if __name__ == "__main__":
 
@@ -82,5 +83,6 @@ if __name__ == "__main__":
                        "taught me if I don't have enough storage for all the important things in life, "
                        "I can just make more.", delete_after=60)
 
-
-    bot.run("ODMxMDY2MDY0NTI3MTYzNDEz.YHP0lg.cAP8aUYLStHU7tGtlMiKd38doHY")
+    load_dotenv()
+    TOKEN = os.getenv('DISCORD_TOKEN')
+    bot.run(TOKEN)
