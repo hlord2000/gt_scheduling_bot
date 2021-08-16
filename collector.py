@@ -14,8 +14,9 @@ class OSCAR_API:
     # Gathers course data, formats, and saves it to shelf file in ./data
     def get_courses(self):
         # Request from Course Compass API
+        headers = {'auth': 'KCrsaNMFraPi4aq4vyj/lAez3XrUiGq+ytUNPUePv5O9s+aTSiO8y5Z4gbIKQxEszDccqU9f5714DA8bVWxu1Q==',}
         response = requests.get(
-            "http://gtcoursecompass.com/api/v1/getCourses", verify=False
+            "http://gtcoursecompass.com/api/v1/getCourses", headers=headers, verify=False
         ).text
         # If ./data path does not exist, make it
         if not os.path.isdir("./data"):
@@ -146,7 +147,7 @@ def collect_course_data():
                 x.get_crit()
                 x.get_crit_prof()
                 x.set_rate_my_professor()
-                x.cios_finder()
+                #x.cios_finder()
                 x.subjective_score_creator()
             listing.append(course_objects)
             i -= 1

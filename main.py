@@ -2,13 +2,18 @@ from discord.ext import tasks, commands
 from discord_slash import SlashCommand, SlashContext
 from discord_slash.utils.manage_commands import create_option
 import os
+import schedule
+
+import collector
 from collector import update_database
 from course import *
 import asyncio
 from dotenv import load_dotenv
+import threading
+import aiocron
 
-if __name__ == "__main__":
 
+def run():
     description = '''A bot intended to make Georgia Tech's class search
     LESS TERRIBLE'''
 
@@ -17,11 +22,9 @@ if __name__ == "__main__":
     slash = SlashCommand(bot, sync_commands=True)
     guild_ids = [797968601575325707, 575726573852819508, 760550078448140346, 823735719708590110]
 
-
     @bot.event
     async def on_ready():
         print("ready, sama")
-
 
     @slash.slash(name="search",
                  description="Input your department, course number, season, and year to search.",
@@ -54,7 +57,7 @@ if __name__ == "__main__":
                  guild_ids=guild_ids)
     async def _search(ctx: SlashContext, department: str, coursenum: str, season=None, year=None):
         msg = await ctx.send(f"Working on {department.upper()} {coursenum}!")
-        department = department.upper()
+
         try:
             if type(season) is not str or type(year) is not str:
                 report = DataReporting(department, coursenum, 0)
@@ -69,7 +72,6 @@ if __name__ == "__main__":
         except KeyError:
             await msg.edit(content="Course could not be found.")
 
-
     @commands.cooldown(1, 360, commands.BucketType.guild)
     @slash.slash(name="kevin",
                  description="KeyError: UNKNOWN",
@@ -83,6 +85,16 @@ if __name__ == "__main__":
                        "taught me if I don't have enough storage for all the important things in life, "
                        "I can just make more.", delete_after=60)
 
+    @aiocron.crontab('0 3 * * MON')
+    async def database():
+        print("pog")
+        collector.update_database()
+        print("pog")
+
     load_dotenv()
     TOKEN = os.getenv('DISCORD_TOKEN')
     bot.run(TOKEN)
+
+
+if __name__ == "__main__":
+    run()
