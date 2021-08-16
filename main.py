@@ -54,7 +54,7 @@ if __name__ == "__main__":
                  guild_ids=guild_ids)
     async def _search(ctx: SlashContext, department: str, coursenum: str, season=None, year=None):
         msg = await ctx.send(f"Working on {department.upper()} {coursenum}!")
-
+        department = department.upper()
         try:
             if type(season) is not str or type(year) is not str:
                 report = DataReporting(department, coursenum, 0)
