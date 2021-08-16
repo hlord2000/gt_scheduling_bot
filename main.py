@@ -2,14 +2,9 @@ from discord.ext import tasks, commands
 from discord_slash import SlashCommand, SlashContext
 from discord_slash.utils.manage_commands import create_option
 import os
-import schedule
-
 import collector
-from collector import update_database
 from course import *
-import asyncio
 from dotenv import load_dotenv
-import threading
 import aiocron
 
 
