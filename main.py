@@ -87,9 +87,7 @@ def run():
 
     @aiocron.crontab('0 3 * * MON')
     async def database():
-        print("pog")
         collector.update_database()
-        print("pog")
 
     load_dotenv()
     TOKEN = os.getenv('DISCORD_TOKEN')
